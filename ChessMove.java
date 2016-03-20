@@ -1,3 +1,8 @@
+/**
+ * The purpose of this class is to create a move in chess as an object. The methods in this class
+ * are designed to evaluate the instance of an attempted move. Boolean values are returned to tell
+ * whether or not the move is legal.
+*/
 package Chess;
 
 import java.util.ArrayList;
@@ -168,7 +173,9 @@ public class ChessMove {
 			++iteration;
 		}
 	}
-
+	
+	// Create mutators.
+	
 	public void setI(int i) {
 		this.i = i;
 	}
@@ -212,6 +219,8 @@ public class ChessMove {
 		this.playerTwoPieceCodes.addAll(playerTwoPieceCodes);
 	}
 
+	// Create accessors.
+	
 	public int getI() {
 		return i;
 	}
