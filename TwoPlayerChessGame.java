@@ -69,7 +69,9 @@ public class TwoPlayerChessGame {
 
 						public void actionPerformed(ActionEvent E) {
 							char[][] boardCode = board.getBoardCode();
-							if (compilationStep == 0) {
+							if (compilationStep == 0) {/*
+							* In this compilation step, the player is selecting a piece from the board.
+							*/
 								gameWindow.dispose();
 								i = X;
 								j = Y;
@@ -78,7 +80,10 @@ public class TwoPlayerChessGame {
 								board.setBoardCode(boardCode);
 								++compilationStep;
 								playRound();
-							} else {
+							} else {/*
+							* In this compilation step, the player is selecting where on the board
+							* they wish to relocated their piece.
+							*/
 								gameWindow.dispose();
 								v = X;
 								w = Y;
@@ -87,6 +92,7 @@ public class TwoPlayerChessGame {
 									ChessMove move = new ChessMove(i, j, v, w, selectionCode, destinationCode,
 											boardCode, isPlayerOneTurn, playerOnePieceCodes, playerTwoPieceCodes);
 									boardCode[v][w] = selectionCode;
+									// If a move is successful, it becomes the next player's turn.
 									isPlayerOneTurn = !isPlayerOneTurn;
 									if (move.validCastlingMove)
 										switch (selectionCode) {
@@ -120,6 +126,7 @@ public class TwoPlayerChessGame {
 									System.out.println("Player one is in check.");
 									playerOneCheckMode = true;
 									if (!isPlayerOneTurn) {
+										// A player cannot put themselves in check.
 										System.out.println("That is not a valid move.");
 										isPlayerOneTurn = true;
 										boardCode[i][j] = selectionCode;
@@ -131,6 +138,7 @@ public class TwoPlayerChessGame {
 									System.out.println("Player two is in check.");
 									playerTwoCheckMode = true;
 									if (isPlayerOneTurn) {
+										// A player cannot put themselves in check.
 										System.out.println("That is not a valid move.");
 										isPlayerOneTurn = false;
 										boardCode[i][j] = selectionCode;
@@ -151,6 +159,7 @@ public class TwoPlayerChessGame {
 
 	public static void main(String[] args) {
 		char[][] boardCode = new char[8][8];
+		// Assign the orignal chess piece positions.
 		boardCode[0][0] = 'R';
 		boardCode[0][7] = 'R';
 		boardCode[0][1] = 'N';
@@ -171,14 +180,14 @@ public class TwoPlayerChessGame {
 		boardCode[7][5] = 'b';
 		boardCode[7][3] = 'q';
 		boardCode[7][4] = 'k';
-		playerOnePieceCodes = new ArrayList<Character>();
+		playerOnePieceCodes = new ArrayList<Character>(); // These piece codes belong to player one.
 		playerOnePieceCodes.add('R');
 		playerOnePieceCodes.add('N');
 		playerOnePieceCodes.add('B');
 		playerOnePieceCodes.add('Q');
 		playerOnePieceCodes.add('K');
 		playerOnePieceCodes.add('P');
-		playerTwoPieceCodes = new ArrayList<Character>();
+		playerTwoPieceCodes = new ArrayList<Character>(); // These piece codes belong to player two.
 		playerTwoPieceCodes.add('r');
 		playerTwoPieceCodes.add('n');
 		playerTwoPieceCodes.add('b');
