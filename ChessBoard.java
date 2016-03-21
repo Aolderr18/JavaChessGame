@@ -22,7 +22,7 @@ public class ChessBoard {
 			}
 	}
 
-	boolean playerOneInCheck() {
+	boolean playerOneInCheck() { 
 		w = playerOneKingCoordinates % 10;
 		v = playerOneKingCoordinates - w;
 		v /= 10;
@@ -34,7 +34,10 @@ public class ChessBoard {
 					try {
 						new ChessMove(i, j, v, w, boardCode[i][j], 'K', boardCode, false, playerOnePieceCodes,
 								playerTwoPieceCodes);
-						return true;
+						return true; /*
+						* A successful virtual move means that player one's king is
+						* one move away from being defeated by player two.
+						*/
 					} catch (InvalidChessMoveException invalid) {
 
 					} catch (ArrayIndexOutOfBoundsException outOfBounds) {
@@ -57,7 +60,10 @@ public class ChessBoard {
 					try {
 						new ChessMove(i, j, v, w, boardCode[i][j], 'k', boardCode, true, playerOnePieceCodes,
 								playerTwoPieceCodes);
-						return true;
+						return true;/*
+						* A successful virtual move means that player two's king is
+						* one move away from being defeated by player one.
+						*/
 					} catch (InvalidChessMoveException invalid) {
 
 					} catch (ArrayIndexOutOfBoundsException outOfBounds) {
@@ -74,7 +80,10 @@ public class ChessBoard {
 				if (playerOnePieceCodes.contains(boardCode[i][j])) {
 					VirtualMoves vm = new VirtualMoves(i, j, boardCode, boardCode[i][j], true, playerOnePieceCodes,
 							playerTwoPieceCodes);
-					if (!vm.stillInCheck)
+					if (!vm.stillInCheck) /*
+					* If any virtual move occurs that changes the boolean stillInCheck to
+					* false, then this player is not in check mate.
+					*/
 						return false;
 				}
 			}
@@ -87,7 +96,10 @@ public class ChessBoard {
 				if (playerTwoPieceCodes.contains(boardCode[i][j])) {
 					VirtualMoves vm = new VirtualMoves(i, j, boardCode, boardCode[i][j], false, playerOnePieceCodes,
 							playerTwoPieceCodes);
-					if (!vm.stillInCheck) {
+					if (!vm.stillInCheck) { /*
+					* If any virtual move occurs that changes the boolean stillInCheck to
+					* false, then this player is not in check mate.
+					*/
 						return false;
 					}
 				}
